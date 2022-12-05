@@ -39,7 +39,11 @@ public class OtherUtil
     public final static String NEW_VERSION_AVAILABLE = "There is a new version of JMusicBot available!\n"
                     + "Current version: %s\n"
                     + "New Version: %s\n\n"
-                    + "Please visit https://github.com/jagrosh/MusicBot/releases/latest to get the latest release.";
+                    + "Please visit <https://github.com/jagrosh/MusicBot/releases/latest> to get the latest release.";
+    public final static String LATEST_VERSION_ON_SNAPSHOT = "You are running a snapshot! This may not be the latest version.\n"
+                    + "Latest Official Version: %s\n\n"
+                    + "Please visit <https://github.com/jagrosh/MusicBot/releases/latest> to get the latest release\n"
+                    + "or FETCH and MERGE before recompiling with Maven.";
     private final static String WINDOWS_INVALID_PATH = "c:\\windows\\system32\\";
     
     /**
@@ -167,7 +171,11 @@ public class OtherUtil
         
         if(latestVersion!=null && !latestVersion.equals(version))
         {
-            prompt.alert(Prompt.Level.WARNING, "JMusicBot Version", String.format(NEW_VERSION_AVAILABLE, version, latestVersion));
+	    if (version.trim().equals("Snapshot")) {
+               prompt.alert(Prompt.Level.WARNING, "JMusicBot Version", String.format(LATEST_VERSION_ON_SNAPSHOT, latestVersion));
+            } else {
+               prompt.alert(Prompt.Level.WARNING, "JMusicBot Version", String.format(NEW_VERSION_AVAILABLE, version, latestVersion));
+            }
         }
     }
     
